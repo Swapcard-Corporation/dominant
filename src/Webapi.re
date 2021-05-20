@@ -12,12 +12,12 @@ module Image = {
 
 module Element = {
   type t;
-  [@bs.send.pipe : t] external setAttribute : (string, string) => unit = "";
+  [@bs.send.pipe : t] external setAttribute : (string, string) => unit = "setAttribute";
 };
 
 module Document = {
   type t;
-  [@bs.send.pipe : t] external createElement : string => Element.t = "";
+  [@bs.send.pipe : t] external createElement : string => Element.t = "createElement";
 };
 
 module ImageData = {
@@ -27,20 +27,20 @@ module ImageData = {
   [@bs.get] external getData : t => array(float) = "data";
 };
 
-[@bs.val] external document : Document.t = "";
+[@bs.val] external document : Document.t = "document";
 
 module CanvasContext = {
   type t;
   [@bs.send.pipe : t]
-  external drawImage : (Image.t, float, float) => unit = "";
+  external drawImage : (Image.t, float, float) => unit = "drawImage";
   [@bs.send.pipe : t]
-  external getImageData : (float, float, float, float) => ImageData.t = "";
+  external getImageData : (float, float, float, float) => ImageData.t = "getImageData";
 };
 
 module Canvas = {
   type t;
   [@bs.send.pipe : Element.t]
-  external getContext : string => CanvasContext.t = "";
+  external getContext : string => CanvasContext.t = "getContext";
 };
 
 let onLoad = callback =>
@@ -50,9 +50,9 @@ let onLoad = callback =>
       let canvas = document |> Document.createElement("canvas");
       let context = canvas |> Canvas.getContext("2d");
       canvas
-      |> Element.setAttribute("width", string_of_float(Image.getWidth(img)));
+      |> Element.setAttribute("width", Js.Float.toString(Image.getWidth(img)));
       canvas
-      |> Element.setAttribute("height", string_of_float(Image.getHeight(img)));
+      |> Element.setAttribute("height", Js.Float.toString(Image.getHeight(img)));
       context |> CanvasContext.drawImage(img, 0.0, 0.0);
       let imageData =
         context |> CanvasContext.getImageData(0.0, 0.0, 0.0, 0.0);

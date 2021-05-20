@@ -1,15 +1,29 @@
 {
   "name": "dominant",
   "version": "0.1.0",
-  "sources": ["src"],
+  "sources": [
+    "src",
+    {
+      "dir": "__tests__",
+      "type": "dev"
+    }
+  ],
   "package-specs": {
     "module": "es6",
-    "in-source": false
+    "in-source": true
+  },
+  "gentypeconfig": {
+    "language": "typescript",
+    "importPath": "relative",
+    "shims": {
+      "Js": "Js",
+      "Dom": "Dom",
+      "ReasonPervasives": "ReasonPervasives"
+    }
   },
   "suffix": ".bs.js",
-  "bs-dependencies": ["bs-jest"],
-  "bs-dev-dependencies": [],
-  "bsc-flags": ["-bs-gen-tds", "-bs-super-errors"],
-  "namespace": true,
-  "refmt": 3
+  "bs-dependencies": [],
+  "bs-dev-dependencies": [ "@glennsl/bs-jest" ],
+  "bsc-flags": [ "-bs-super-errors" ],
+  "namespace": true
 }

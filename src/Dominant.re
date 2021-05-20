@@ -164,6 +164,7 @@ let ofImageData = (imageData, ~square=?, ()) =>
     ()
   );
 
+[@gentype]
 let ofUrl = (url, ~square=?, ()) =>
   Webapi.imageDataOfUrl(url)
   |> Js.Promise.then_(imageData =>
